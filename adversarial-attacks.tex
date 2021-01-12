@@ -1,0 +1,15 @@
+\section*{Adversarial Attacks}
+\subsection*{FGSM}
+\paragraph{Targeted:} 
+$x' := x - \epsilon \cdot \sign(\nabla_x \loss_\text{target}(x))$
+
+\paragraph{Untargeted:}
+$x' := x + \epsilon \cdot \sign(\nabla_x \loss_\text{label}(x))$
+
+\subsection*{Carlini-Wagner}
+\paragraph{Opt. Prob.:} \texttt{find} $\eta$ \texttt{minimize} $\|\eta\|_p$ \texttt{s.t.} $f(x+\eta) =t, x+\eta \in [0,1]^n$
+\paragraph{Relaxed:} \texttt{find} $\eta$ \texttt{minimize} $\|\eta\|_p + c \cdot \obj_t(x+\eta)$ \texttt{s.t.} $x+\eta \in [0,1]^n$
+
+With $\obj_t(x+\eta) \le 0 \Rightarrow f(x+\eta) = t$ (e.g., $\loss_t(x) - 1 = -\log_C(p(x)_t) - 1$ or $max(0, 0.5- p(x)_t)$)
+
+When using $L_\infty$, gradient of $\|\eta\|_\infty$ is zero at all non-max entries $\rightarrow$ use $L(\eta) = \sum_i max(0, \lvert \eta_i - \tau \rvert)$ instead; Start with $\tau=1$, update $\eta K$ times, if $L(\eta) = 0$ decrease $\tau$ and repeat, otherwise stop and return previous $\eta$. 

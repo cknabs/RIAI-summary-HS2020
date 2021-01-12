@@ -8,15 +8,28 @@
 \usepackage[landscape, margin=1cm]{geometry}
 
 \usepackage{multicol}
-\setlength{\columnseprule}{0.4pt}
+\newcommand{\rulewidth}{0.4pt}
+\setlength{\columnseprule}{\rulewidth}
 
 \usepackage{titlesec}
-\titleformat*{\section}{\bfseries}
-% \titleformat*{\subsection}{\bfseries}
-% \titleformat*{\subsubsection}{\bfseries}
-% \titleformat*{\paragraph}{\bfseries}
-% \titleformat*{\subparagraph}{\bfseries}
+\newcommand{\rulefilled}[1]{#1~\hrulefill}
+\newcommand{\dotfilled}[1]{#1{\tiny\dotfill}}
+\titleformat{\section}{\bfseries}{\thesection}{1em}{\rulefilled}
+\titleformat{\subsection}{\bfseries}{\thesubsection}{1em}{\dotfilled}
+\titleformat*{\subsubsection}{\bfseries}
+\titleformat*{\paragraph}{\bfseries}
+\titleformat*{\subparagraph}{\bfseries}
+\titlespacing*{\section}{0pt}{0pt}{0pt}
+\titlespacing*{\subsection}{0pt}{0pt}{0pt}
+\titlespacing*{\paragraph}{0pt}{0pt}{1em}
 
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+\usepackage{amsmath}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\loss}{loss}
+\DeclareMathOperator{\obj}{obj}
 
 \title{RIAI Summary HS 2020}
 \author{knabenhc }
@@ -25,7 +38,7 @@
 \begin{document}
 \pagestyle{empty}
 \begin{multicols*}{3}
-\section*{Adversarial Attacks}
+\input{adversarial-attacks}
 \section*{Adversarial Defenses}
 \section*{Certification}
 \section*{Certification (Complete Methods)}
