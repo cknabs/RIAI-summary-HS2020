@@ -6,10 +6,54 @@ $x' := x - \epsilon \cdot \sign(\nabla_x \loss_\text{target}(x))$
 \paragraph{Untargeted:}
 $x' := x + \epsilon \cdot \sign(\nabla_x \loss_\text{label}(x))$
 
-\subsection*{Carlini-Wagner}
+\subsection*{Carlini-Wagner (Minimize Perturbation)}
 \paragraph{Opt. Prob.:} \texttt{find} $\eta$ \texttt{minimize} $\|\eta\|_p$ \texttt{s.t.} $f(x+\eta) =t, x+\eta \in [0,1]^n$
 \paragraph{Relaxed:} \texttt{find} $\eta$ \texttt{minimize} $\|\eta\|_p + c \cdot \obj_t(x+\eta)$ \texttt{s.t.} $x+\eta \in [0,1]^n$
 
 With $\obj_t(x+\eta) \le 0 \Rightarrow f(x+\eta) = t$ (e.g., $\loss_t(x) - 1 = -\log_C(p(x)_t) - 1$ or $max(0, 0.5- p(x)_t)$)
 
-When using $L_\infty$, gradient of $\|\eta\|_\infty$ is zero at all non-max entries $\rightarrow$ use $L(\eta) = \sum_i max(0, \lvert \eta_i - \tau \rvert)$ instead; Start with $\tau=1$, update $\eta K$ times, if $L(\eta) = 0$ decrease $\tau$ and repeat, otherwise stop and return previous $\eta$. 
+When using $L_\infty$, gradient of $\|\eta\|_\infty$ is zero at all non-max entries $\rightarrow$ use $L(\eta) = \sum_i max(0, \lvert \eta_i - \tau \rvert)$ instead; Start with $\tau=1$, update $\eta$ $K$ times, if $L(\eta) = 0$ decrease $\tau$ and repeat, otherwise stop and return previous $\eta$. 
+
+\subsection*{PGD}
+\algrenewcommand{\algorithmicfunction}{\textbf{def}}
+
+\begin{algorithmic}
+\Function{PGD}{$x, y, k, \epsilon_\text{step}, \epsilon$}
+\State $x' \gets x + \eta$ for random $\eta$ with $\|\eta\|_\infty \le \epsilon$
+\For{$i = 1, \ldots, k$}
+    \State $g \gets \nabla_{x'} \loss(f(x'), y)$ \Comment{uFGSM($x'$, $y$)}
+    \State $x' \gets x' +  \epsilon_\text{step} \cdot \sign(g)$ \Comment{uFGSM($x'$, $y$)}
+    \State $x' \gets x + \max(\min(x'-x, \epsilon), -\epsilon)$
+    \State Clip $x'$ to input domain \Comment{e.g., $[0,1]^n$}
+\EndFor
+\State \Return $x'$
+\EndFunction
+\end{algorithmic}
+
+\begin{algorithmic}
+\Function{PGD\_$L_p$}{$x, y, k, \epsilon_\text{step}, \epsilon$}
+\State $x' \gets x + \eta$ for random $\eta$ with $\|\eta\|_p \le \epsilon$
+\For{$i = 1, \ldots, k$}
+    \State $g \gets \nabla_{x'} \loss(f(x'), y)$
+    \State $x' \gets x' + \epsilon_\text{step} \cdot \frac{g}{\|g\|_p}$ \Comment{dir of $g$, not sign}
+    \If{$\|x'-x\|_p > \epsilon$}
+        \State $x' \gets x + \epsilon \frac{x'-x}{\|x'-x\|_p}$
+    \EndIf
+    \State Clip $x'$ to input space
+\EndFor
+\State \Return $x'$
+\EndFunction
+\end{algorithmic}
+
+\subsection*{Diffing Networks}
+$\obj_t(x) := f(x)_t - g(x)_t$ (or abs. diff. of prob.)
+
+\begin{algorithmic}
+\Function{Diff\_nets}{$f, g, \epsilon$}
+\State Select $x$ classified as $t$ by both $f$ and $g$
+\While{$\class(f(x)) = \class(g(x))$}
+    \State $x \gets x + \epsilon \cdot \nabla_x \obj_t(x)$ \Comment{Make $f$ more confident about $t$ while making $g$ less confident}
+\EndWhile
+\State \Return $x$
+\EndFunction
+\end{algorithmic}
