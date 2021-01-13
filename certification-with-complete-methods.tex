@@ -1,0 +1,18 @@
+\subsection*{MILP (complete for ReLU, NP-complete)}
+\begin{tabular}{|l@{~~}l}
+\textbf{Objective} & $\min_{x_1, \ldots, x_n} c_1 x_1 + \ldots + c_n x_n$ \\
+\textbf{Constraints} & $a_{i,1} x_1 + \ldots + a_{i,n} x_n \le b_i$, $1 \le i \le m$ \\
+\textbf{Bounds} & $x_j \in [l_j, u_j]$ or $x_j \in \mathbb{Z}$, $1 \le j \le n$
+\end{tabular}
+\paragraph{Affine layer} $y=Wx+b$
+\paragraph{ReLU layer} 
+\begin{tabular}[t]{l@{}l@{}r}
+$y \le x - l(1-a)$ & \rdelim{\}}{5}{*} & $x \in [l, u]$\\
+$y \le u a$ & & $a = 0 \Rightarrow (y=0$ \\
+$y \ge x$ & & $\land~ x \in [l, 0])$ \\
+$y \ge 0$ & & $a=1 \Rightarrow (y = x$\\
+$a \in \{0, 1\}$ & & $\land~ x \in [0, u])$
+\end{tabular}
+\paragraph{Bounds} 
+$x_i \in[l_i, u_i]$ (precomputed box bounds for neurons) or $x_i' \in [x_i - \epsilon, x_i + \epsilon]$ (inputs)
+\paragraph{Objective} $\min o_\text{label} - o_i$ (verification succeeds iff $o_\text{label} > o_i$)
