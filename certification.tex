@@ -1,0 +1,11 @@
+\paragraph{Soundness} When a  property is violated, if the method terminates, it always states that the property is violated
+\paragraph{Completeness} When a property holds, the method is able to prove it
+\paragraph{Incompleteness} When a property holds, the method might not be able to prove it (e.g. bounds propagation with convex relaxations)
+\subsection*{Box Abstract Transformers}
+\begin{itemize}
+    \item $[a, b] \sharp{+} [c, d] = [a+c, b+d]$
+    \item $\sharp{-} [a, b] = [-b, -a]$
+    \item $\sharp{ReLU}([a, b]) = [ReLU(a), ReLU(b)]$
+    \item $\lambda \sharp{\cdot} [a, b] = [\lambda \cdot a, \lambda \cdot b]$ for $\lambda \ge 0$
+    \item $[a, b] \sharp{\cdot} [c, d] = [\min(ac, ad, bc, bd), \max(ac, ad, bc, bc)]$
+\end{itemize}

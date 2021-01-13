@@ -34,8 +34,13 @@
 \DeclareMathOperator{\obj}{obj}
 \DeclareMathOperator{\class}{class}
 \DeclareMathOperator*{\E}{\mathbb{E}}
+\renewcommand{\sharp}[1]{\ensuremath{#1^{\#}}}
 
 \usepackage[noEnd=true, commentColor=black]{algpseudocodex}
+
+\usepackage{enumitem}
+\setlist[enumerate]{nosep, leftmargin=1.2em}
+\setlist[itemize]{nosep, leftmargin=0.6em, labelsep=0pt}
 
 \title{RIAI Summary HS 2020}
 \author{Christian Knabenhans}
@@ -49,6 +54,7 @@
 \section*{Adversarial Defenses}
 \input{adversarial-defenses}
 \section*{Certification}
+\input{certification}
 \section*{Certification (Complete Methods)}
 \section*{Zonotope}
 \section*{DeepPoly, Abstract Interpretation}
