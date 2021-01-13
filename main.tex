@@ -26,11 +26,14 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
 
-\usepackage{amsmath}
+\usepackage{amsmath, amssymb}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
 \DeclareMathOperator{\sign}{sign}
-\DeclareMathOperator{\loss}{loss}
+\DeclareMathOperator{\loss}{\mathcal{L}}
 \DeclareMathOperator{\obj}{obj}
 \DeclareMathOperator{\class}{class}
+\DeclareMathOperator*{\E}{\mathbb{E}}
 
 \usepackage[noEnd=true, commentColor=black]{algpseudocodex}
 
@@ -41,8 +44,10 @@
 \begin{document}
 \pagestyle{empty}
 \begin{multicols*}{3}
+\section*{Adversarial Attacks}
 \input{adversarial-attacks}
 \section*{Adversarial Defenses}
+\input{adversarial-defenses}
 \section*{Certification}
 \section*{Certification (Complete Methods)}
 \section*{Zonotope}

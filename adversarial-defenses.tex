@@ -1,0 +1,10 @@
+\paragraph{Adversarial accuracy:} check if data point in test set is classified correctly \emph{and} network is robust in region around point (e.g., using PGD in $\epsilon$ $L_\infty$-ball). Often have tradeoff with standard accuracy. 
+\paragraph{Opt. Prob.:} $\displaystyle \argmin_\theta \E_{(x, y) \sim D} \left[ \max_{x' \in S(x)} \loss(\theta; x', y)\right]$
+\subsection*{PGD training}
+\begin{enumerate}
+    \item Select mini-batch $B$
+    \item $\displaystyle B_\text{max} \gets \{\argmax_{x' \in S(x)} \loss(\theta; x', y) \lvert x \in B\}$
+    \item $\displaystyle \theta \gets \theta - \frac{1}{\lvert B_\text{max} \rvert} \sum_{(x, y) \in B_\text{max}} \nabla_\theta \loss(\theta; x, y)$
+\end{enumerate}
+\subsection*{TRADES}
+$$ \argmin_\theta \E_{(x, y) \sim D} \left[ \loss(\theta; x, y) + \lambda \cdot \max_{x' \in S(x)} \loss(\theta; x', f_\theta(x))\right]$$
