@@ -1,0 +1,6 @@
+\paragraph{Zonotope} $\hat{x_j} = a_0^j + \sum_{i=1}^k a_i^j \epsilon_i$, $\epsilon_i \in [-1, 1]$
+\paragraph{Symmetry} center is $a_0$, $2 \cdot a_0 - X$ is $X$ flipped
+\paragraph{Affine} Zonotope is linear
+\paragraph{ReLU} Enumerate $\epsilon_i \in [-1,1]$ to find $l_x$, $u_x$. 
+If $u_x \le 0$, $\hat{y} = 0$. If $l_x \ge 0$, $\hat{y} = \hat{x}$. 
+Otherwise, $\hat{y} = \lambda \hat{x} - \epsilon_\text{new} \frac{\lambda l_x}{2} - \frac{\lambda l_x}{2}$, $\lambda := \frac{u_x}{u_x-l_x}$
