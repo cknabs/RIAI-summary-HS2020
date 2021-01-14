@@ -1,0 +1,12 @@
+\paragraph{Def} $x_i \in [l_i, u_i]$, $a_i^\le \le x_i \le a_i^\ge$, $a_i^\cdot = \sum_j w_j x_j + v$
+\paragraph{Complexity} Affine: $\mathcal{O}(\left(\text{\#layers} \right) \left(\text{max \#neurons}\right)^2)$, ReLU: $\mathcal{O}(1)$
+\paragraph{ReLU}
+\begin{tabular}[t]{c|c|c|c|c}
+    Condition & $a_j^\le$ & $a_j^\ge$ & $l_j$ & $u_j$ \\\midrule
+    $u_i \le 0$ & 0 & 0 & 0 & 0 \\
+    $l_i \ge 0$ & $x_i$ & $x_i$ & $l_i$ & $u_i$ \\
+    $l_i < 0 < u_i$ & $u_i \dfrac{x_i-l_i}{u_i-l_i}$ & $\lambda x_i$ & $\lambda l_i$ & $u_i$ 
+\end{tabular}
+For any $\lambda \in [0,1]$
+\paragraph{Backsub} After affine layer, repeatedly backsubstitute (for $l$, choose $a^\le$ for $w \ge 0$, $a^\ge$ otherwise)
+\paragraph{Verification} Backsubstitute $x_\text{label} - x_i$ to find lower bound, verifies iff $> 0$
