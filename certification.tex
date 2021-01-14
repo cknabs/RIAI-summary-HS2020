@@ -3,9 +3,9 @@
 \paragraph{Incompleteness} When a property holds, the method might not be able to prove it (e.g. bounds propagation with convex relaxations)
 \subsection*{Box Abstract Transformers}
 \begin{itemize}
-    \item $[a, b] \sharp{+} [c, d] = [a+c, b+d]$
-    \item $\sharp{-} [a, b] = [-b, -a]$
-    \item $\sharp{ReLU}([a, b]) = [ReLU(a), ReLU(b)]$
-    \item $\lambda \sharp{\cdot} [a, b] = [\lambda \cdot a, \lambda \cdot b]$ for $\lambda \ge 0$
-    \item $[a, b] \sharp{\cdot} [c, d] = [\min(ac, ad, bc, bd), \max(ac, ad, bc, bc)]$
+    \item $[a, b] \Sharp{+} [c, d] = [a+c, b+d]$
+    \item $\Sharp{-} [a, b] = [-b, -a]$
+    \item $\Sharp{ReLU}([a, b]) = [ReLU(a), ReLU(b)]$
+    \item $\lambda \Sharp{\cdot} [a, b] = [\lambda \cdot a, \lambda \cdot b]$ for $\lambda \ge 0$
+    \item $[a, b] \Sharp{\cdot} [c, d] = [\min(ac, ad, bc, bd), \max(ac, ad, bc, bc)]$
 \end{itemize}

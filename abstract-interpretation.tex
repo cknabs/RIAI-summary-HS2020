@@ -1,0 +1,20 @@
+\paragraph{Soundness} 
+$\forall z \in \mathbb{A} . F(\gamma(z)) \subseteq \gamma(\Sharp{F}(z))$
+
+\paragraph{Exactness}
+$\forall z \in \mathbb{A} . F(\gamma(z)) = \gamma(\Sharp{F}(z))$
+
+\paragraph{Optimality}
+$\forall z . \forall \Sharp{F} ~\text{sound}. \gamma(\Sharp{F}(z)) \not\subset \gamma(\Sharp{F_\text{best}}(z))$
+
+\centering
+\begin{tabular}[t]{c|c|c}
+    Domain & Affine Transformer  & ReLU Transformer \\\midrule
+    \multirow{2}{*}{Box} & not exact & not exact \\
+    & optimal & optimal \\\midrule
+    \multirow{2}{*}{Zonotope} & exact & not exact \\
+    & optimal & no optimal trafo \\\midrule
+    \multirow{2}{*}{DeepPoly} & exact & not exact \\
+    & optimal & no optimal trafo 
+\end{tabular}
+\raggedright
