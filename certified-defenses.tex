@@ -1,0 +1,17 @@
+Train networks to be provably robust (instead of experimentally result as in PGD training). 
+
+\paragraph{Opt.:} 
+$\displaystyle \argmin_\theta \E_{(x, y) \sim D} \left[ \max_{z \in \gamma(\Sharp{\operatorname{NN}}(S(x)))} \loss(\theta; z, y)\right]$
+
+\paragraph{Loss} $\displaystyle \loss(z, y) := \max_{q \neq y} (z_q - z_y) = \max_{q \neq y} (\operatorname{box}(z_q - z_y))$
+
+\paragraph{CE loss} $\loss(z, y) = \operatorname{CE}(z', y)$, with $z'_y := l_y$, $z'_q := u_q$ for $q \neq y$ 
+
+\paragraph{Universal Approximation} For any neural network, there exists a network with the same properties that can be analyzed exactly with Box. 
+
+\paragraph{Complexity} Using complex relaxations generally leads to worse results in provability than with Box (more complex optimization problem)
+
+\paragraph{COLT} For each layer, find $x_l \in S_l$ that maximizes loss in final layer, and use it. 
+
+\paragraph{COLT projection} Write zonotope as $Z = A \cdot [-1, 1]^d$, compute $e = A^{-1}\cdot x$, clip $e$ to $[-1, 1]$, projection is $A\cdot e_\text{clip}$. 
+This projection is \emph{sound} (result inside zonotope), but \emph{not optimal}. 
