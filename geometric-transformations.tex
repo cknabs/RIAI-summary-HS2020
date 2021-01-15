@@ -1,0 +1,39 @@
+\paragraph{Rotation}
+$T_\phi(x, y) = (x \cos(\phi) -  y \sin(\phi), x \sin(\phi) + y \cos(\phi))$
+
+\paragraph{Translation} $T_\delta(x, y) = (x + \delta_x, y + \delta_y)$
+
+\paragraph{Scaling}
+$T_\lambda(x, y) = (\lambda x, \lambda y)$
+
+\paragraph{Interpolation} To compute pixel value $I_\kappa(x, y)$ after $T_\kappa$: compute pre-image $T_\kappa(x, y)$, then interpolate. 
+
+\paragraph{Domain}
+$w_l^T \kappa + b_l \le I_\kappa(x, y) \le w_u^T + b_u$, for all $\kappa$
+
+\paragraph{Tightness}
+$\begin{array}{r@{~:=~}l}
+L(w_l, b_l) & \int_{\kappa\in D} \left(I_\kappa(x, y) - (w_l^T\kappa + b_l)\right) d\kappa \\
+U(w_u, b_u) & \int_{\kappa\in D} \left((w_u^T\kappa + b_u) - I_\kappa(x, y)\right) d\kappa
+\end{array}$
+
+\paragraph{Optimization}
+\begin{itemize}
+\item $L(w_l, b_l) \approx \frac{1}{N} \sum_{i=1}^N \left(I_\kappa(x, y) - (w_l^T\kappa^i + b_l)\right)$
+\item $w_l^T\kappa^i + b_l \le I_{\kappa^i}(x, y)$, $1 \le i \le N$
+\end{itemize}
+$\rightarrow$ Solve in poly-time with linear programming. 
+\paragraph{Soundness}
+Find upper bound $\delta$ on violation: 
+$\begin{array}{r@{~\le~}ll}
+(w_l^T\kappa^i + b_l) - I_\kappa(x, y) & \delta_l &\forall \kappa \in D \\
+ I_\kappa(x, y) - (w_u^T\kappa + b_u) & \delta_u &\forall \kappa \in D
+\end{array}$
+
+Using $b_l-\delta_l$, $b_u+\delta_u$ is sound. 
+
+\paragraph{$\rightarrow$ Box}
+Use Box to compute upper bound on $f(\kappa)$
+
+\paragraph{$\rightarrow$ MVTh} if $\lvert \partial_i f(\kappa') \rvert \le \lvert L_i \rvert \forall \kappa' \in D = [h_l, h_u]$
+$f(\kappa) = f(\kappa_C) + \nabla f(\kappa')^T(\kappa-\kappa_C) \le f(\kappa_C) + \lvert L \rvert^T (\kappa - \kappa_C) \le f\left(\frac{h_u+h_l}{2} + \lvert L \rvert^T \frac{(h_u-h_l)}{2}\right)$
