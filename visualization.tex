@@ -1,0 +1,12 @@
+\paragraph{Opt.:}
+$\argmin_x \operatorname{score}(x) - \sum \lambda_i \operatorname{Regularizer}_i(x)$, $\operatorname{score}(x) := \operatorname{mean}(\operatorname{layer}_l[x])$ (using GD)
+
+\paragraph{Gradient Feature Attribution}
+$\nabla_x \operatorname{logit}_t(x)$
+
+\paragraph{Shapley Values}
+$\displaystyle C_i := \sum_{S \subseteq P \setminus \{i\}} \frac{\lvert S \rvert! (\lvert P\rvert - \lvert S \rvert - 1) !}{\lvert P \rvert !} \left(f(S \cup \{i\}) - f(S) \right)$
+
+Need to define $f(S)$ (e.g., set pixels not in $S$ to 0)
+
+\paragraph{Robustness} Robust NN rely on more robust features, more aligned with human perception
