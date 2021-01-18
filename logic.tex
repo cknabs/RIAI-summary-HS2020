@@ -1,0 +1,30 @@
+\subsection*{Querying}
+\paragraph{Optimization:} $\forall x. T(\phi)(x) = 0 \Leftrightarrow x \text{ satisfies } \phi$
+
+\centering
+\begin{tabular}{ll}
+$\phi$ & $T(\phi)$ (non-negative) \\\hline
+$t_1 \le t_2$ & $\max(0, t_1-t_2)$ \\
+$t_1 \neq t_2$ & $[t_1 = t_2]$ \\
+$t_1 = t_2$ & $T(t_1 \le t_2 \land t_2 \le t_1$ \\
+$t_1 < t_2$ & $T(t_1 \le t_2 \land t_1 \neq t_2)$ \\
+$\phi \lor \psi$ & $T(\phi) \cdot T(\psi)$ \\
+$\phi \land \psi$ & $T(\phi) + T(\psi)$
+\end{tabular}
+
+\raggedright
+\paragraph{Box} Box constraints are encoded separately (e.g., w/ L-BFGS-B optimizer)
+
+\paragraph{Counter-example} Use optimization to find counter-examples to a given property. 
+
+\subsection*{Training with Background Knowledge}
+\begin{enumerate}
+\item $\displaystyle \argmax_\theta \E_{s \sim D} \left[ \forall z. \phi(z, s, \theta) \right]$ (find $\theta$ s.t. exp. val. of property increases)
+
+\item $\displaystyle \argmin_\theta \E_{s \sim D} \left[ \max_z \lnot \phi(z, s, \theta) \right]$ (find $\theta$ s.t. max. violation of $\phi$ is minimized)
+
+\item $\displaystyle \argmin_\theta \E_{s \sim D} \left[ T(\phi)(z_\text{worst}, s, \theta) \right]$,
+$\displaystyle z_\text{worst} := \argmin_z T(\lnot \phi)(z, s, \theta)$ (find worst possible violation of $\phi$, then find $\theta$ that minimizes its effect)
+\end{enumerate}
+
+To solve inner opt. problem efficiently, split into objective and (efficient) projections on convex set (e.g., $L_\infty$-ball)
