@@ -34,6 +34,10 @@
 \DeclareMathOperator{\obj}{obj}
 \DeclareMathOperator{\class}{class}
 \DeclareMathOperator*{\E}{\mathbb{E}}
+\let\P\relax
+\DeclareMathOperator*{\P}{\mathbb{P}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\DeclareMathOperator*{\B}{\ensuremath{\mathbb{B}}}
 \newcommand{\Sharp}[1]{\ensuremath{#1^{\sharp}}}
 
 \usepackage[noEnd=true, commentColor=black]{algpseudocodex}
@@ -74,5 +78,6 @@
 \section*{Logic \& Deep Learning}
 \input{logic}
 \section*{Randomized Smoothing}
+\input{randomized-smoothing}
 \end{multicols*}
 \end{document}

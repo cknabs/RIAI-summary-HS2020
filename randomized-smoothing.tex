@@ -1,0 +1,39 @@
+Given classifier $f : \mathbb{R}^d \to \mathcal{Y}$, construct smoothed classifier $g$ as $\displaystyle g(x) := \argmax_{c \in \mathcal{Y}} \P_\epsilon \left[f(x+\epsilon) = c\right]$ where $\epsilon \sim \mathcal{N}(0, \sigma^2 \mathbf{1})$
+
+\paragraph{Robustness}
+If $\displaystyle \P[f(x+\epsilon) = c_A] \ge \underline{p_A} \ge \overline{p_B} \ge \max_{c \neq c_A} \P[f(x+\epsilon) = c]$, then $g(x+\delta) = c_A$ for all $\| \delta \|_2 < R := \frac{\sigma}{2} \left( \Phi^{-1}(\underline{p_A}) - \Phi^{-1}(\overline{p_B}) \right)$
+
+\paragraph{Certification} $\underline{p_A}$ approximate with sampling: if $\underline{p_A} > 0.5$, return radius $\sigma \Phi^{-1}(\underline{p_A})$, otherwise abstain. 
+
+\paragraph{Certified Accuracy}
+Pick target radius $T$, count \#points in test set with certified radius $R > T$ and where predicted label matches test set label (Standard accuracy: $T=0$)
+
+ \paragraph{Inference}
+ Reject null hypothesis (true prob. of $f$ returning $\hat{c_A}$ is $0.5$, i.e., classes are indistinguishable) if estimated $p$-value $\le \alpha$, else abstain. 
+ 
+ $\rightarrow$ classifier returns wrong class $\hat{c_A} \neq c_A$ with prob. $\le \alpha$
+ 
+ \paragraph{Generalized Smoothing} 
+ $g(x) = \argmax_{c \in \mathcal{Y}} \P_\epsilon[f(\psi_\epsilon(x)) = c]$, $\epsilon \sim \mathcal{N}(0, \sigma^2\mathbf{1})$, $\psi_\alpha(\psi_\beta) = \psi_{\alpha+\beta}$ (e.g., instantiate $\psi$ with geometric transformations). 
+ 
+\paragraph{Summary}
+\begin{itemize}
+\item Scales to large networks;
+\item Relaxes deterministic guarantees into statistical guarantees on robustness;
+\item May need many samples to obtain higher certified radius. Also requires sampling at inference time;
+\item Generalizing smoothing to different properties is harder than convex methods.
+\end{itemize}
+
+\paragraph{Norms ($x \in \R^d$)}
+\begin{itemize}
+\item $\|x\|_\infty \le \|x\|_1$
+\item $\|x\|_\infty \le \|x\|_2$
+
+\item $\|x\|_1 \le d \|x\|_\infty$
+\item $\|x\|_1 \le \sqrt{d} \|x\|_2$
+
+\item $\|x\|_2 \le \sqrt{d} \|x\|_\infty$
+\item $\|x\|_2 \le \|x\|_1$
+\item $\B_1^1 \subseteq \B_1^2 \subseteq \B_1^\infty \subseteq \B_{\sqrt{d}}^2 \subseteq \B_d^1$
+\item Classifier safe for $L_2$-radius of $\epsilon$ $\Rightarrow$ safe for $L_\infty$-radius of $\dfrac{\epsilon}{\sqrt{d}}$
+\end{itemize}
