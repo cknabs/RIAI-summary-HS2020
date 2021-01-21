@@ -5,8 +5,10 @@
     Condition & $a_j^\le$ & $a_j^\ge$ & $l_j$ & $u_j$ \\\midrule
     $u_i \le 0$ & 0 & 0 & 0 & 0 \\
     $l_i \ge 0$ & $x_i$ & $x_i$ & $l_i$ & $u_i$ \\
-    $l_i < 0 < u_i$ & $u_i \dfrac{x_i-l_i}{u_i-l_i}$ & $\lambda x_i$ & $\lambda l_i$ & $u_i$ 
+    $l_i < 0 < u_i$ & $\lambda x_i$ & $u_i \dfrac{x_i-l_i}{u_i-l_i}$ & $\lambda l_i$ & $u_i$ 
 \end{tabular}
 For any $\lambda \in [0,1]$
+\paragraph{Area heuristic} Choose $\lambda=0$ if $u\le-l$, else $\lambda=1$
+
 \paragraph{Backsub} After affine layer, repeatedly backsubstitute (for $l$, choose $a^\le$ for $w \ge 0$, $a^\ge$ otherwise)
 \paragraph{Verification} Backsubstitute $x_\text{label} - x_i$ to find lower bound, verifies iff $> 0$
