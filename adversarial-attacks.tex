@@ -29,19 +29,10 @@ When using $L_\infty$, gradient of $\|\eta\|_\infty$ is zero at all non-max entr
 \EndFunction
 \end{algorithmic}
 
+For general norm $\|\cdot\|$, use
 \begin{algorithmic}
-\Function{PGD\_$L_p$}{$x, y, k, \epsilon_\text{step}, \epsilon$}
-\State $x' \gets x + \eta$ for random $\eta$ with $\|\eta\|_p \le \epsilon$
-\For{$i = 1, \ldots, k$}
-    \State $g \gets \nabla_{x'} \loss(f(x'), y)$
-    \State $x' \gets x' + \epsilon_\text{step} \cdot \frac{g}{\|g\|_p}$ \Comment{dir of $g$, not sign}
-    \If{$\|x'-x\|_p > \epsilon$}
-        \State $x' \gets x + \epsilon \frac{x'-x}{\|x'-x\|_p}$
-    \EndIf
-    \State Clip $x'$ to input space
-\EndFor
-\State \Return $x'$
-\EndFunction
+\State $x' \gets x' + \epsilon_\text{step} \cdot \frac{g}{\|g\|}$ \Comment{dir of $g$, not sign}
+\If{$\|x'-x\|_p > \epsilon$} \State $x' \gets x + \epsilon \frac{x'-x}{\|x'-x\|}$ \EndIf
 \end{algorithmic}
 
 \subsection*{Diffing Networks}
